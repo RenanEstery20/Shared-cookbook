@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  cookbook-db:
+    image: postgres:12
+    container_name: cookbook-db
+    hostname: cookbook-db
+    env_file:
+      - ./.env
+    ports:
+      - '5432:5432'
+  cookbook-api:
+    image: node:16.17.0
+    container_name: cookbook-api
+    volumes:
+      - ./src:/home/app/src
+    build: 
+      dockerfile: Dockerfile
+      context: .
+    ports:
+      - '3000:3000'
+    environment:
+      NODE_ENV: development
+      WAIT_HOSTS: cookbook-db:5432
+    depends_on:
+      - cookbook-db
+    command: sh -c "/wait && npm run db:migrate && npm run db:seed && npm run start"
