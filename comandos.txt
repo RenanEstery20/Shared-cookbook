@@ -1,0 +1,5 @@
+Comando para subir container do docker com a aplicacao = sudo docker-compose up --b
+Comando para criar uma migration = sudo npx sequelize migration:create --name=create-users
+Comando para criar um seed = sudo npx sequelize seed:create --name=default-user
+Comando para entrar dentro do container rodando: sudo docker exec -it nomecontainer /bin/sh
+  Depois que entrar podemos dar o comando o comando para rodar a seed: npx sequelize db:seed:all
