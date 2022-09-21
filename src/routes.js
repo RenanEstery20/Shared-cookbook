@@ -2,9 +2,11 @@ import { Router } from 'express';
 
 const routes = Router();
 
-routes.get('/users');
-routes.post('/users');
-routes.get('/users/:id');
-routes.put('/users/:id');
+import UserController from './app/controllers/UserController';
+
+routes.get('/users', UserController.index);
+routes.post('/users', UserController.create);
+routes.get('/users/:id', UserController.show);
+routes.put('/users/:id', UserController.update);
 
 export default routes;
