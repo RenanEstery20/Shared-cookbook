@@ -3,3 +3,5 @@ Comando para criar uma migration = sudo npx sequelize migration:create --name=cr
 Comando para criar um seed = sudo npx sequelize seed:create --name=default-user
 Comando para entrar dentro do container rodando: sudo docker exec -it nomecontainer /bin/sh
   Depois que entrar podemos dar o comando o comando para rodar a seed: npx sequelize db:seed:all
+Comando para apagar todos os containers existentes: docker system prune -a
+Comando para add um campo na migration que ja existe : sudo npx sequelize migration:create --name=add-title-recipe-fields

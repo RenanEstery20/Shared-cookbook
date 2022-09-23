@@ -31,5 +31,6 @@ routes.post('/attachments', upload.single('file'), AttachmentController.create);
 routes.get('/recipes', RecipeController.index);
 routes.get('/recipes/:id', RecipeController.show);
 routes.post('/recipes', RecipeController.create);
-
+routes.put('/recipes/:id', RecipeController.update);
+routes.delete('/recipes/:id', RecipeController.delete);
 export default routes;

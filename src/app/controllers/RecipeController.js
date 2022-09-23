@@ -12,7 +12,7 @@ class RecipeController {
     }
 
     async show(request, response) {
-        const recipe = await RecipeController.findByPk(request.params.id);
+        const recipe = await Recipe.findByPk(request.params.id);
 
         return response.json(recipe);
     }
@@ -20,6 +20,7 @@ class RecipeController {
     async create(request, response) {
         const schema = Yup.object()
             .shape({
+                name: Yup.string().max(100).required(),
                 preparation_instructions: Yup.string().required(),
                 preparation_time: Yup.number().required(),
                 portions: Yup.number().required(),
@@ -29,6 +30,7 @@ class RecipeController {
             .noUnknown();
 
         try {
+            console.log(schema.portions);
             const validFields = await schema.validate(request.body, {
                 abortEarly: false,
                 stripUnknown: true
@@ -39,15 +41,55 @@ class RecipeController {
                 user_id: request.userId
             });
 
-            return response.json(recipe);
+            return response.json({ recipe });
         } catch (error) {
             return response.status(400).json(error);
         }
     }
 
-    async update(request, response) {}
+    async update(request, response) {
+        const schema = Yup.object()
+            .shape({
+                name: Yup.string().max(100).required(),
+                preparation_instructions: Yup.string().required(),
+                preparation_time: Yup.number().required(),
+                portions: Yup.number().required(),
+                category_id: Yup.number().required(),
+                attachment_id: Yup.number()
+            })
+            .noUnknown();
 
-    async delete(request, response) {}
+        try {
+            const recipe = await Recipe.findByPk(request.params.id);
+
+            if (!recipe) {
+                return response.status(404).json({ error: 'Recipe not found' });
+            }
+
+            const validFields = await schema.validate(request.body, {
+                abortEarly: false,
+                stripUnknown: true
+            });
+
+            await recipe.update(validFields);
+
+            return response.json({ recipe });
+        } catch (error) {
+            return response.status(400).json({ error });
+        }
+    }
+
+    async delete(request, response) {
+        const recipe = await Recipe.findByPk(request.params.id);
+
+        if (!recipe) {
+            return response.status(404).json({ error: 'Recipe not found' });
+        }
+
+        await recipe.destroy();
+
+        return response.json({ message: 'Receita removida com sucesso' });
+    }
 }
 
 export default new RecipeController();
