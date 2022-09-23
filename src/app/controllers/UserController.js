@@ -25,6 +25,7 @@ class UserController {
         //create new user
     async create(request, response) {
             //validation
+            console.log(response.body);
             const schema = Yup.object()
                 .shape({
                     name: Yup.string().required().max(70),

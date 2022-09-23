@@ -34,7 +34,7 @@ class RecipeController {
                 stripUnknown: true
             });
 
-            const recipe = await User.create({
+            const recipe = await Recipe.create({
                 ...validFields,
                 user_id: request.userId
             });
