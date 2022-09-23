@@ -11,6 +11,7 @@ import AuthController from './app/controllers/AuthController';
 import authMiddleware from './app/middlewares/authMiddleware';
 import CategoryController from './app/controllers/CategoryController';
 import AttachmentController from './app/controllers/AttachmentController';
+import RecipeController from './app/controllers/RecipeController';
 //rotas publicas
 routes.post('/auth', AuthController.create);
 
@@ -26,5 +27,9 @@ routes.put('/users', UserController.update);
 routes.get('/categories', CategoryController.index);
 
 routes.post('/attachments', upload.single('file'), AttachmentController.create);
+
+routes.get('/recipes', RecipeController.index);
+routes.get('/recipes/:id', RecipeController.show);
+routes.post('/recipes', RecipeController.create);
 
 export default routes;

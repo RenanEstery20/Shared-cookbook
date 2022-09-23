@@ -5,8 +5,6 @@ class UserController {
     //get all users
     async index(request, response) {
             const { page = 1 } = request.query;
-
-            console.log(request.userId);
             const user = await User.findAll({
                 attributes: ['id', 'name', 'email', 'status', 'is_admin'],
                 limit: 20,
