@@ -13,6 +13,7 @@ import CategoryController from './app/controllers/CategoryController';
 import AttachmentController from './app/controllers/AttachmentController';
 import RecipeController from './app/controllers/RecipeController';
 import FavoriteController from './app/controllers/FavoriteController';
+import RatingController from './app/controllers/RatingController';
 //rotas publicas
 routes.post('/auth', AuthController.create);
 
@@ -38,4 +39,6 @@ routes.delete('/recipes/:id', RecipeController.delete);
 routes.post('/favorites/:recipe_id', FavoriteController.create);
 routes.get('/favorites', FavoriteController.index);
 routes.delete('/favorites/:recipe_id', FavoriteController.delete);
+
+routes.post('/ratings/:recipe_id', RatingController.create);
 export default routes;

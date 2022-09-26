@@ -7,14 +7,18 @@ class RecipeController {
         const { page = 1 } = request.query;
         const recipes = await Recipe.findAll({
             limit: 20,
-            offset: (page - 1) * 20
+            offset: (page - 1) * 20,
+            include: [{
+                association: 'ratings',
+                attributes: ['name']
+            }]
         });
         return response.json(recipes);
     }
 
     async show(request, response) {
         const recipe = await Recipe.findByPk(request.params.id, {
-            attributes: ['id', 'name', 'preparation_instructions', 'preparation_time', 'portions'],
+            attributes: ['id', 'name', 'preparation_instructions', 'preparation_time', 'portions', 'ratingAvg'],
             include: [{
                     association: 'user',
                     attributes: ['id', 'name']
@@ -30,6 +34,10 @@ class RecipeController {
                 {
                     association: 'attachment',
                     attributes: ['id', 'url', 'file']
+                },
+                {
+                    association: 'ratings',
+                    attributes: ['name']
                 }
             ]
         });
