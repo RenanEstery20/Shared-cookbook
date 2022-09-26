@@ -16,8 +16,13 @@ class UserController {
         //show user
     async show(request, response) {
             const { id } = request.params;
+
             const user = await User.findByPk(id, {
-                attributes: ['id', 'name', 'email', 'status', 'is_admin']
+                attributes: ['id', 'name', 'email', 'status', 'is_admin'],
+                include: [{
+                    association: 'avatar',
+                    attributes: ['id', 'file', 'url']
+                }]
             });
 
             return response.json(user);
@@ -29,7 +34,8 @@ class UserController {
                 .shape({
                     name: Yup.string().required().max(70),
                     email: Yup.string().required().email().max(120),
-                    password: Yup.string().required().min(6)
+                    password: Yup.string().required().min(6),
+                    avatar_id: Yup.number()
                 })
                 .noUnknown();
             //verification email exists
@@ -64,7 +70,8 @@ class UserController {
         const schema = Yup.object()
             .shape({
                 name: Yup.string().max(70),
-                password: Yup.string().min(6)
+                password: Yup.string().min(6),
+                avatar_id: Yup.number()
             })
             .noUnknown();
 
