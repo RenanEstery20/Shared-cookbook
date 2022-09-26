@@ -1,15 +1,15 @@
-import Attachment from '../models/Attachment';
+import Attachment from '../models/Attachment'
 
 class AttachmentController {
-    async create(request, response) {
-        const { originalname, filename } = request.file;
+  async create(request, response) {
+    const { originalname, filename } = request.file
 
-        const attachment = await Attachment.create({
-            name: originalname,
-            file: filename
-        });
-        return response.json(attachment);
-    }
+    const attachment = await Attachment.create({
+      name: originalname,
+      file: filename,
+    })
+    return response.json(attachment)
+  }
 }
 
-export default new AttachmentController();
+export default new AttachmentController()

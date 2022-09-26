@@ -5,3 +5,6 @@ Comando para entrar dentro do container rodando: sudo docker exec -it nomecontai
   Depois que entrar podemos dar o comando o comando para rodar a seed: npx sequelize db:seed:all
 Comando para apagar todos os containers existentes: docker system prune -a
 Comando para add um campo na migration que ja existe : sudo npx sequelize migration:create --name=add-title-recipe-fields
+Comando para instalar o eslint: sudo npm i -D eslint prettier eslint-config-prettier eslint-plugin-prettier
+Comando para iniciarl o eslint: sudo npx eslint --init
+Comando para fix no eslint: npx eslint --fix --ext .js src/
